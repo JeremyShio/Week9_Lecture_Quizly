@@ -20,9 +20,9 @@ const MainAuthRouter = require('express').Router();
 // })
 
 
-MainAuthRouter.route('/')
+MainAuthRouter.route('/register')
     .get((req, res) => {
-        res.send('Main Auth Router Register')
+        res.render('register')
     })
     .post((req, res) => {
         res.send('Post Main Auth Router')
