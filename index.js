@@ -1,9 +1,15 @@
+// require runs dotenv module, in which 
+const dotenv = require('dotenv');
 // require runs Express module, in which express returns
 const express = require('express');
-const app = express();
-const port = 5000;
 const path = require('path');
-console.log(path);
+const { connectDB } = require('./src/db');
+
+dotenv.config();
+const app = express();
+connectDB();
+
+
 
 
 app.get('/', (req, res) => {
@@ -16,12 +22,16 @@ app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'src/templates/views'))
 
 
+// Need this middleware so that form data is added to request
+app.use(express.urlencoded({ extended: true }))
+
+
 // Initialize routes
 const initRoutes = require('./src/routes');
 initRoutes(app);
 // Returns exports from
 
 
-app.listen(port, () => {
-    console.log(`Server is now running on port ${port}`);
+app.listen(process.env.PORT, () => {
+    console.log(`Server is now running on port ${process.env.PORT}`)
 })
